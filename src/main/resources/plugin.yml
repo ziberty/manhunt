@@ -1,0 +1,10 @@
+name: Manhunt
+version: '${project.version}'
+main: fr.ziberty.manhunt.Manhunt
+api-version: 1.16
+authors: [ ziberty ]
+description: Manhunt plugin
+commands:
+  config:
+    description: Ouvre le menu de configuration
+    permission: config.use
