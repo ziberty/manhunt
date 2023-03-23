@@ -20,7 +20,7 @@ public class ItemStackHelper {
     private ItemMeta getItemMeta(ItemStack itemStack, String name, String description) {
         ItemMeta meta = itemStack.getItemMeta();
         meta.setDisplayName(name);
-        meta.setLore(Collections.singletonList(description));
+        if (description != null) meta.setLore(Collections.singletonList(description));
         return meta;
     }
 

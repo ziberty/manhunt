@@ -23,8 +23,8 @@ public class ConfigInventory {
 
     private Inventory buildInventory(Inventory inventory) {
         ItemStackHelper itemStackHelper = new ItemStackHelper();
-        inventory.setItem(2, itemStackHelper.getItemStack(Material.DRAGON_EGG, "§bSpeedrunners", "§7Choisir les speedrunners", 1));
-        inventory.setItem(6, itemStackHelper.getItemStack(Material.GREEN_CONCRETE, "§aCommencer", "", 1));
+        inventory.setItem(11, itemStackHelper.getItemStack(Material.DRAGON_EGG, "§bSpeedrunners", "§7Choisir les speedrunners", 1));
+        inventory.setItem(15, itemStackHelper.getItemStack(Material.GREEN_CONCRETE, "§aCommencer", null, 1));
         return inventory;
     }
 
