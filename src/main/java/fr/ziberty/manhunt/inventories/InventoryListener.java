@@ -4,6 +4,8 @@ import fr.ziberty.manhunt.Manhunt;
 import fr.ziberty.manhunt.listeners.TrackingListener;
 import fr.ziberty.manhunt.tasks.GameTimer;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -63,6 +65,18 @@ public class InventoryListener implements Listener {
                     player.openInventory(main.getConfigInventory().getInventory());
                     break;
             }
+        } else if (event.getView().getTitle().equalsIgnoreCase("Ressusciter un allié")) {
+            event.setCancelled(true);
+            switch (itemStack.getType()) {
+                case PLAYER_HEAD:
+                    Player playerToRevive = Bukkit.getPlayer(itemMeta.getDisplayName());
+                    revivePlayer(playerToRevive);
+                    player.getInventory().remove(Material.SEA_PICKLE);
+                    break;
+                case BARRIER:
+                    player.closeInventory();
+                    break;
+            }
         }
     }
 
@@ -81,5 +95,16 @@ public class InventoryListener implements Listener {
         GameTimer gameTimer = new GameTimer(main, trackingListener);
         gameTimer.runTaskTimer(main, 0, 1);
         main.setGameStarted(true);
+    }
+
+    private void revivePlayer(Player player) {
+        player.teleport(main.getSpeedrunnersList().get(0).getLocation());
+        player.setGameMode(GameMode.SURVIVAL);
+        player.getInventory().setHelmet(new ItemStack(Material.IRON_HELMET));
+        player.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
+        player.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
+        player.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS));
+        player.getInventory().addItem(new ItemStack(Material.STONE_SWORD));
+        player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 5));
     }
 }

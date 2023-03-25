@@ -28,7 +28,7 @@ public class ItemStackHelper {
         ItemStack item = new ItemStack(Material.PLAYER_HEAD, qty);
         SkullMeta skull = (SkullMeta) item.getItemMeta();
         skull.setDisplayName(name);
-        skull.setLore(Collections.singletonList(description));
+        if (description != null) skull.setLore(Collections.singletonList(description));
         skull.setOwningPlayer(player);
         item.setItemMeta(skull);
         return item;

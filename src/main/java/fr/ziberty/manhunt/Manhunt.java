@@ -5,6 +5,7 @@ import fr.ziberty.manhunt.crafts.RespawnSpeedrunnerItem;
 import fr.ziberty.manhunt.inventories.ConfigInventory;
 import fr.ziberty.manhunt.inventories.InventoryListener;
 import fr.ziberty.manhunt.listeners.PreGameEvents;
+import fr.ziberty.manhunt.listeners.RespawnItemListener;
 import fr.ziberty.manhunt.listeners.TrackingListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
@@ -61,10 +62,8 @@ public final class Manhunt extends JavaPlugin {
         setupWorld();
         setConfigInventory(new ConfigInventory());
         setTrackingListener(new TrackingListener(this));
-        getCommand("config").setExecutor(new Config(this));
-        getServer().getPluginManager().registerEvents(new InventoryListener(this, trackingListener), this);
-        getServer().getPluginManager().registerEvents(trackingListener, this);
-        getServer().getPluginManager().registerEvents(new PreGameEvents(this), this);
+        loadCommands();
+        loadListeners();
     }
 
     @Override
@@ -78,5 +77,16 @@ public final class Manhunt extends JavaPlugin {
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "gamerule doDaylightCycle false");
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "gamerule doFireTick false");
         RespawnSpeedrunnerItem respawnSpeedrunnerItem = new RespawnSpeedrunnerItem();
+    }
+
+    private void loadListeners() {
+        getServer().getPluginManager().registerEvents(new InventoryListener(this, trackingListener), this);
+        getServer().getPluginManager().registerEvents(trackingListener, this);
+        getServer().getPluginManager().registerEvents(new PreGameEvents(this), this);
+        getServer().getPluginManager().registerEvents(new RespawnItemListener(this), this);
+    }
+
+    private void loadCommands() {
+        getCommand("config").setExecutor(new Config(this));
     }
 }

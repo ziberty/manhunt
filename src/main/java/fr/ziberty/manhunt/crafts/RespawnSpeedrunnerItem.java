@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 public class RespawnSpeedrunnerItem {
@@ -21,7 +22,7 @@ public class RespawnSpeedrunnerItem {
         itemMeta.setDisplayName("§bCornichon sacré du respawn");
         itemMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false);
         itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        itemMeta.setLore(Collections.singletonList("§7Permet de ressuciter un allié mort"));
+        itemMeta.setLore(Arrays.asList("§7Permet de ressusciter un allié mort", "§7Est consommé une fois l'allié ressuscité"));
         itemStack.setItemMeta(itemMeta);
 
         ShapedRecipe shapedRecipe = new ShapedRecipe(itemStack);
