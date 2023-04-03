@@ -4,6 +4,7 @@ import fr.ziberty.manhunt.commands.Config;
 import fr.ziberty.manhunt.crafts.RespawnSpeedrunnerItem;
 import fr.ziberty.manhunt.inventories.ConfigInventory;
 import fr.ziberty.manhunt.inventories.InventoryListener;
+import fr.ziberty.manhunt.listeners.HuntersListener;
 import fr.ziberty.manhunt.listeners.PreGameEvents;
 import fr.ziberty.manhunt.listeners.RespawnItemListener;
 import fr.ziberty.manhunt.listeners.TrackingListener;
@@ -24,6 +25,8 @@ public final class Manhunt extends JavaPlugin {
     private TrackingListener trackingListener;
 
     private boolean gameStarted;
+
+    private boolean huntersBlocked;
 
     public ConfigInventory getConfigInventory() {
         return configInventory;
@@ -57,6 +60,14 @@ public final class Manhunt extends JavaPlugin {
         return this.speedrunnersList.contains(player);
     }
 
+    public boolean areHuntersBlocked() {
+        return huntersBlocked;
+    }
+
+    public void setHuntersBlocked(boolean huntersBlocked) {
+        this.huntersBlocked = huntersBlocked;
+    }
+
     @Override
     public void onEnable() {
         setupWorld();
@@ -84,6 +95,7 @@ public final class Manhunt extends JavaPlugin {
         getServer().getPluginManager().registerEvents(trackingListener, this);
         getServer().getPluginManager().registerEvents(new PreGameEvents(this), this);
         getServer().getPluginManager().registerEvents(new RespawnItemListener(this), this);
+        getServer().getPluginManager().registerEvents(new HuntersListener(this), this);
     }
 
     private void loadCommands() {

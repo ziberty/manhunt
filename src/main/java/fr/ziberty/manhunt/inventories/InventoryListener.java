@@ -14,8 +14,12 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class InventoryListener implements Listener {
     private Manhunt main;
@@ -54,10 +58,10 @@ public class InventoryListener implements Listener {
             switch (itemStack.getType()) {
                 case PLAYER_HEAD:
                     Player itemPlayer = Bukkit.getPlayer(itemMeta.getDisplayName());
-                    if (main.isPlayerSpeedrunner(player)) {
-                        main.getSpeedrunnersList().remove(player);
+                    if (main.isPlayerSpeedrunner(itemPlayer)) {
+                        main.getSpeedrunnersList().remove(itemPlayer);
                     } else {
-                        main.getSpeedrunnersList().add(player);
+                        main.getSpeedrunnersList().add(itemPlayer);
                     }
                     player.openInventory(new SpeedrunnersInventory(main).getInventory());
                     break;
@@ -72,6 +76,7 @@ public class InventoryListener implements Listener {
                     Player playerToRevive = Bukkit.getPlayer(itemMeta.getDisplayName());
                     revivePlayer(playerToRevive);
                     player.getInventory().remove(Material.SEA_PICKLE);
+                    Bukkit.broadcastMessage("§c" + playerToRevive.getDisplayName() + " §ea été ressuscité !");
                     break;
                 case BARRIER:
                     player.closeInventory();
@@ -82,15 +87,24 @@ public class InventoryListener implements Listener {
 
     private void launchGame() {
         HashMap<Player, Integer> playerTrackingMap = new HashMap<>();
+        List<String> speedrunnerNames = new ArrayList<>();
         for (Player p : Bukkit.getOnlinePlayers()) {
+            p.getInventory().clear();
+            p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 1, true, false));
             if (!main.isPlayerSpeedrunner(p)) {
                 playerTrackingMap.put(p, 0);
+                p.getInventory().addItem(new ItemStack(Material.COMPASS));
+            } else {
+                speedrunnerNames.add(p.getDisplayName());
             }
             p.teleport(main.getSpeedrunnersList().get(0));
             p.sendTitle("§aLe manhunt", "§acommence", 20, 20, 20);
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
         }
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "gamerule doDaylightCycle true");
+        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "time set 0");
+        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "weather clear");
+        Bukkit.broadcastMessage("§eLes speedrunners sont : §c" + String.join(", ", speedrunnerNames));
         trackingListener.setPlayerTrackingMap(playerTrackingMap);
         GameTimer gameTimer = new GameTimer(main, trackingListener);
         gameTimer.runTaskTimer(main, 0, 1);
