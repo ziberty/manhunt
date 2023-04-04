@@ -5,7 +5,7 @@ Manhunt reprenant le concept de vidéos de Dream.
 - Choix des speedrunners et des hunters : via la commande /config, une interface vous permet de sélectionner les joueurs ayant le rôle de hunter et de speedrunner
 - Boussole : pointe vers un speedrunner, click droit pour changer de cible.
 - Respawn d'un speedrunner : les speedrunners peuvent ressusciter un allié via un nouvel item
-![](C:\Users\hdega\Downloads\crafting-grid.png)
+![](crafting-grid.png)
 
 ## Crédits
 
