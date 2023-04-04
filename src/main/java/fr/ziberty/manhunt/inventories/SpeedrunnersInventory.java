@@ -28,7 +28,7 @@ public class SpeedrunnersInventory {
 
     private Inventory buildInventory(Inventory inventory) {
         ItemStackHelper itemStackHelper = new ItemStackHelper();
-        inventory.setItem(49, itemStackHelper.getItemStack(Material.BARRIER, "§cRetour", "", 1));
+        inventory.setItem(49, itemStackHelper.getItemStack(Material.BARRIER, "§cRetour", null, 1));
         int index = 0;
         for (Player player : Bukkit.getOnlinePlayers()) {
             String description = "§4Hunter";

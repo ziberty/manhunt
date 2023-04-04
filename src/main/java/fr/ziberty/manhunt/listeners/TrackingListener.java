@@ -152,5 +152,21 @@ public class TrackingListener implements Listener {
             playerVisitedEnd.put(player, true);
             playerEndPortalLocation.put(player, player.getLocation());
         }
+        if (main.isPlayerSpeedrunner(player)) {
+            String worldString = "l'overworld";
+            switch (world.getEnvironment()) {
+                case NETHER:
+                    worldString = "le nether";
+                    break;
+                case THE_END:
+                    worldString = "l'end";
+                    break;
+            }
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                if (playerTrackingMap.get(p) == main.getSpeedrunnersList().indexOf(player)) {
+                    p.sendMessage("§a" + player.getDisplayName() + " est passé dans " + worldString);
+                }
+            }
+        }
     }
 }

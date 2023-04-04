@@ -77,6 +77,7 @@ public class InventoryListener implements Listener {
                     revivePlayer(playerToRevive);
                     player.getInventory().remove(Material.SEA_PICKLE);
                     Bukkit.broadcastMessage("§c" + playerToRevive.getDisplayName() + " §ea été ressuscité !");
+                    player.closeInventory();
                     break;
                 case BARRIER:
                     player.closeInventory();

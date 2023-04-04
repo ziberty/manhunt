@@ -29,7 +29,7 @@ public class RespawnItemInventory {
 
     private Inventory buildInventory(Inventory inventory) {
         ItemStackHelper itemStackHelper = new ItemStackHelper();
-        inventory.setItem(49, itemStackHelper.getItemStack(Material.BARRIER, "§cAnnuler", "", 1));
+        inventory.setItem(49, itemStackHelper.getItemStack(Material.BARRIER, "§cAnnuler", null, 1));
         int index = 0;
         for (Player player : main.getSpeedrunnersList()) {
             if (player.getGameMode() != GameMode.SPECTATOR) break;
