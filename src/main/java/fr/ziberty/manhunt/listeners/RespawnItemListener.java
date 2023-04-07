@@ -23,8 +23,7 @@ public class RespawnItemListener implements Listener {
         Action action = event.getAction();
         ItemStack itemStack = event.getItem();
 
-        if (itemStack == null) return;
-        //if (itemStack == null || !main.isPlayerSpeedrunner(player)) return;
+        if (itemStack == null || !main.isPlayerSpeedrunner(player)) return;
 
         if (itemStack.getType() == Material.SEA_PICKLE) {
             if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().equalsIgnoreCase("§bCornichon sacré du respawn")) {

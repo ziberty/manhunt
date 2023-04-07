@@ -1,6 +1,7 @@
 package fr.ziberty.manhunt;
 
 import fr.ziberty.manhunt.commands.Config;
+import fr.ziberty.manhunt.commands.TeamChat;
 import fr.ziberty.manhunt.crafts.RespawnSpeedrunnerItem;
 import fr.ziberty.manhunt.inventories.ConfigInventory;
 import fr.ziberty.manhunt.inventories.InventoryListener;
@@ -100,5 +101,6 @@ public final class Manhunt extends JavaPlugin {
 
     private void loadCommands() {
         getCommand("config").setExecutor(new Config(this));
+        getCommand("t").setExecutor(new TeamChat(this));
     }
 }

@@ -14,6 +14,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashMap;
 
@@ -90,8 +92,8 @@ public class TrackingListener implements Listener {
                     do {
                         playerMapNumber = playerTrackingMap.get(player) + 1;
                         if (playerMapNumber >= main.getSpeedrunnersList().size()) playerMapNumber = 0;
+                        playerTrackingMap.put(player, playerMapNumber);
                     } while (!main.getSpeedrunnersList().get(playerMapNumber).getGameMode().equals(GameMode.SURVIVAL));
-                    playerTrackingMap.put(player, playerMapNumber);
                 }
                 Player trackedPlayer = main.getSpeedrunnersList().get(playerMapNumber);
                 String monde = "Overworld";
@@ -163,10 +165,19 @@ public class TrackingListener implements Listener {
                     break;
             }
             for (Player p : Bukkit.getOnlinePlayers()) {
-                if (playerTrackingMap.get(p) == main.getSpeedrunnersList().indexOf(player)) {
+                if (!main.isPlayerSpeedrunner(p) && playerTrackingMap.get(p) == main.getSpeedrunnersList().indexOf(player)) {
                     p.sendMessage("§a" + player.getDisplayName() + " est passé dans " + worldString);
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onHunterRespawn(PlayerRespawnEvent event) {
+        Player player = event.getPlayer();
+        if (!main.isPlayerSpeedrunner(player)) {
+            player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 64));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 1, true, false));
         }
     }
 }

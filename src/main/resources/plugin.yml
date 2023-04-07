@@ -8,3 +8,5 @@ commands:
   config:
     description: Ouvre le menu de configuration
     permission: config.use
+  t:
+    description: Chat de team

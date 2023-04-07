@@ -9,6 +9,6 @@ Manhunt reprenant le concept de vidéos de Dream.
 
 ## Crédits
 
-Merci à pika, zleh et zenox pour avoir testé le plugin
+Merci à pika, zleh, zenox et wisyt pour avoir testé le plugin
 
 Plugin développé par ziberty

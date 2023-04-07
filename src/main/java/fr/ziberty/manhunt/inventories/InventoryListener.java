@@ -91,10 +91,10 @@ public class InventoryListener implements Listener {
         List<String> speedrunnerNames = new ArrayList<>();
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.getInventory().clear();
+            p.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 64));
             p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 1, true, false));
             if (!main.isPlayerSpeedrunner(p)) {
                 playerTrackingMap.put(p, 0);
-                p.getInventory().addItem(new ItemStack(Material.COMPASS));
             } else {
                 speedrunnerNames.add(p.getDisplayName());
             }
@@ -120,6 +120,7 @@ public class InventoryListener implements Listener {
         player.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
         player.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS));
         player.getInventory().addItem(new ItemStack(Material.STONE_SWORD));
-        player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 5));
+        player.getInventory().addItem(new ItemStack(Material.COOKED_BEEF, 64));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 1, true, false));
     }
 }
